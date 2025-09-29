@@ -1,15 +1,18 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import { Home } from './pages/Home'
+import { Watchlist } from './pages/Watchlist'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
 
   return (
-    <>
-      <h1 className="text-4xl font-bold text-blue-600">
-        Movie Library
-      </h1>
-    </>
+    <Router>
+      <AppRoutes />
+    </Router>
   )
+
 }
 
 export default App
