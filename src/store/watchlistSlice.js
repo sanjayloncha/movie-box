@@ -1,25 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    movies: JSON.parse(localStorage.getItem("watchlist")) || [],
-}
+const initialState = { movies: JSON.parse(localStorage.getItem("watchlist")) || [], };
 
-export const watchlistSlice = createSlice({
-    name: 'watchlist',
+const watchlistSlice = createSlice({
+    name: "watchlist",
     initialState,
     reducers: {
         addToWatchlist: (state, action) => {
-            if (!state.movies.find(movie => movie.id === action.payload.id)) {
-                state.movies.push(action.payload)
+            const movie = action.payload;
+            if (!state.movies.find((m) => m.id === movie.id)) {
+                state.movies.push(movie);
+                localStorage.setItem("watchlist", JSON.stringify(state.movies));
             }
         },
         removeFromWatchlist: (state, action) => {
-            state.movies = state.movies.filter(
-                movie => movie.id !== action.payload.id
-            )
+            const id = action.payload;
+            state.movies = state.movies.filter((m) => m.id !== id);
+            localStorage.setItem("watchlist", JSON.stringify(state.movies));
         },
     },
-})
+});
 
-export const { addToWatchlist, removeFromWatchlist } = watchlistSlice.actions
-export default watchlistSlice.reducer
+export const { addToWatchlist, removeFromWatchlist } = watchlistSlice.actions;
+export default watchlistSlice.reducer;
